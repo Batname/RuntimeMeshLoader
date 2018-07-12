@@ -19,25 +19,25 @@ struct FMeshInfo
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<FVector> Vertices;
+	TArray<FVector> Vertices;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<int32> Triangles;
+	TArray<int32> Triangles;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<FVector> Normals;
+	TArray<FVector> Normals;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<FVector2D> UV0;
+	TArray<FVector2D> UV0;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<FLinearColor> VertexColors;
+	TArray<FLinearColor> VertexColors;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<FProcMeshTangent> Tangents;
+	TArray<FProcMeshTangent> Tangents;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		FTransform RelativeTransform;
+	FTransform RelativeTransform;
 };
 
 USTRUCT(BlueprintType)
@@ -46,16 +46,13 @@ struct FReturnedData
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		bool bSuccess;
+	bool bSuccess;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		int32 NumMeshes;
-
+	int32 NumMeshes;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ReturnedData")
-		TArray<FMeshInfo> meshInfo;
-
-
+	TArray<FMeshInfo> meshInfo;
 };
 
 
@@ -71,9 +68,11 @@ class RUNTIMEMESHLOADER_API ULoaderBPFunctionLibrary : public UBlueprintFunction
 	
 public:
 
+	/** Load mesh from file using Assimp */
 	UFUNCTION(BlueprintCallable,Category="MeshLoader")
-	static FReturnedData LoadMesh(FString filepath,EPathType type= EPathType:: Absolute);
+	static FReturnedData LoadMesh(FString Filepath,	EPathType PathType= EPathType:: Absolute);
 
+	/** Load mesh from memory (as if file) using Assimp */
 	UFUNCTION(BlueprintCallable, Category = "MeshLoader")
 	static FReturnedData LoadMeshFromMemory(const TArray<uint8> Buffer);
 };
