@@ -164,3 +164,44 @@ FReturnedData ULoaderBPFunctionLibrary::LoadMesh(FString filepath, EPathType typ
 
 	return result;
 }
+
+FReturnedData ULoaderBPFunctionLibrary::LoadMeshFromMemory(const TArray<uint8> Buffer)
+{
+	FReturnedData result;
+	result.bSuccess = false;
+	result.meshInfo.Empty();
+	result.NumMeshes = 0;
+
+	Assimp::Importer mImporter;
+
+	const aiScene* mScenePtr = mImporter.ReadFileFromMemory(Buffer.GetData(), Buffer.Num(), aiProcess_Triangulate | aiProcess_MakeLeftHanded | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
+
+	if (mScenePtr == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Runtime Mesh Loader: Read mesh file failure.\n"));
+		return result;
+	}
+
+	if (mScenePtr->HasMeshes())
+	{
+		result.meshInfo.SetNum(mScenePtr->mNumMeshes, false);
+
+		FindMesh(mScenePtr, mScenePtr->mRootNode, result);
+
+		for (uint32 i = 0; i < mScenePtr->mNumMeshes; ++i)
+		{
+			//Triangle number
+			for (uint32 l = 0; l < mScenePtr->mMeshes[i]->mNumFaces; ++l)
+			{
+				for (uint32 m = 0; m < mScenePtr->mMeshes[i]->mFaces[l].mNumIndices; ++m)
+				{
+					result.meshInfo[i].Triangles.Push(mScenePtr->mMeshes[i]->mFaces[l].mIndices[m]);
+				}
+			}
+		}
+
+		result.bSuccess = true;
+	}
+
+	return result;
+}

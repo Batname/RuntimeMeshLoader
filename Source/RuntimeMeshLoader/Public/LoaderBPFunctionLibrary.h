@@ -74,5 +74,6 @@ public:
 	UFUNCTION(BlueprintCallable,Category="MeshLoader")
 	static FReturnedData LoadMesh(FString filepath,EPathType type= EPathType:: Absolute);
 
-	
+	UFUNCTION(BlueprintCallable, Category = "MeshLoader")
+	static FReturnedData LoadMeshFromMemory(const TArray<uint8> Buffer);
 };
