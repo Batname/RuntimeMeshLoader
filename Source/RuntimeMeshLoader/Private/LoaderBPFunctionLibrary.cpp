@@ -165,7 +165,7 @@ FReturnedData ULoaderBPFunctionLibrary::LoadMesh(FString filepath, EPathType typ
 	return result;
 }
 
-FReturnedData ULoaderBPFunctionLibrary::LoadMeshFromMemory(const TArray<uint8> Buffer)
+FReturnedData ULoaderBPFunctionLibrary::LoadMeshFromMemory(const TArray<uint8>& Buffer)
 {
 	FReturnedData result;
 	result.bSuccess = false;

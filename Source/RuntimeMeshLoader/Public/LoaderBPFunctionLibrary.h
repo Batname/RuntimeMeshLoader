@@ -74,5 +74,5 @@ public:
 
 	/** Load mesh from memory (as if file) using Assimp */
 	UFUNCTION(BlueprintCallable, Category = "MeshLoader")
-	static FReturnedData LoadMeshFromMemory(const TArray<uint8> Buffer);
+	static FReturnedData LoadMeshFromMemory(const TArray<uint8>& Buffer);
 };
