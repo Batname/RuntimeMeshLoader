@@ -12,7 +12,7 @@ void FindMeshInfo(const aiScene* scene, aiNode* node, FReturnedData& result)
 	{
 		std::string TestString = node->mName.C_Str();
 		FString Fs = FString(TestString.c_str());
-		UE_LOG(LogTemp, Warning, TEXT("FindMeshInfo. %s\n"), *Fs);
+		UE_LOG(LogTemp, Log, TEXT("(RunTimeMeshLoader)FindMeshInfo. %s\n"), *Fs);
 		int meshidx = *node->mMeshes;
 		aiMesh *mesh = scene->mMeshes[meshidx];
 		FMeshInfo &mi = result.meshInfo[meshidx];
