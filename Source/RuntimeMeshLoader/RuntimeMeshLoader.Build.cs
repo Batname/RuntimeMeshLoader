@@ -12,10 +12,15 @@ public class RuntimeMeshLoader : ModuleRules
 
     private string ThirdPartyPath
     {
-        get { return Path.GetFullPath(Path.Combine(ModulePath, "../../ThirdParty/")); }
+        get { return Path.GetFullPath(Path.Combine(ModulePath, "../ThirdParty/")); }
     }
 
-    public RuntimeMeshLoader(ReadOnlyTargetRules Target) : base(Target)
+	private string BinariesPath
+	{
+		get { return Path.GetFullPath(Path.Combine(ModulePath, "../../Binaries/")); }
+	}
+
+	public RuntimeMeshLoader(ReadOnlyTargetRules Target) : base(Target)
 	{
 	    PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
@@ -71,7 +76,7 @@ public class RuntimeMeshLoader : ModuleRules
             string PlatformString = (Target.Platform == UnrealTargetPlatform.Win64) ? "Win64" : "Win32";
             PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "assimp/Lib",PlatformString, "assimp-vc140-mt.lib"));
 
-            RuntimeDependencies.Add(Path.Combine(ThirdPartyPath, "assimp/Binaries",PlatformString, "assimp-vc140-mt.dll"));
+            RuntimeDependencies.Add(Path.Combine(BinariesPath, PlatformString, "assimp-vc140-mt.dll"));
         }
     }
 }
